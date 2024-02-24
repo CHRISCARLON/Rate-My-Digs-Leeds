@@ -1,0 +1,5 @@
+potery.lock
+.streamlit/
+cache/
+__pycache__/
+.venv/
