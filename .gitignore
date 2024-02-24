@@ -1,4 +1,4 @@
-potery.lock
+poetry.lock
 .streamlit/
 cache/
 __pycache__/
