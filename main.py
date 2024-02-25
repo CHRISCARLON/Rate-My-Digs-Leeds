@@ -73,7 +73,7 @@ def main():
         folium_map = return_hex_map(hex_map_gdf)
     
         # Display the map in the Streamlit app
-        st.write("**Hover your mouse over the hex grids to see the total number of HMOs in each**")
+        st.write("**Hover your mouse over the hex grids to see the total number of HMOs in each one**")
         folium_static(folium_map, width=1420, height=750)
     elif page == "**HMO Address Map (Leeds)**":
         # Use return_df2 to get the geodataframe
