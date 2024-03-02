@@ -38,7 +38,7 @@ def select_address_map(df):
         latitude, longitude = coords
 
         # Aggregate information for tooltip
-        tooltip_text = '<br>'.join([f"<div style='font-family: monospace; font-size: 12px;'> Address: {row['Address']} + Licence Holder: {row['Licence Holder']}.</div>" for _, row in group.iterrows()])
+        tooltip_text = '<br>'.join([f"<div style='font-family: monospace; font-size: 12px;'> Address: {row['address']} + Licence Holder: {row['licence_holder']}.</div>" for _, row in group.iterrows()])
         
         # Create a popup with aggregated information
         popup = folium.Popup(tooltip_text, max_width=700)
