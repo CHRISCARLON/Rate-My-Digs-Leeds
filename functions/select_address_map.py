@@ -1,28 +1,26 @@
-from folium import Map, Marker
 import folium
 import streamlit as st
-import pandas as pd
 
 def select_address_map(df):
     st.markdown('## Address & Licence Holder Mapping')
     # Separate multiselect for addresses
-    selected_addresses = st.multiselect('**Search an Address**', options=df['Address'].unique())
+    selected_addresses = st.multiselect('**Search an Address**', options=df['address'].unique())
 
     # Separate multiselect for licence holders
-    selected_licence_holders = st.multiselect('**Search a Licence Holder**', options=df['Licence Holder'].unique())
+    selected_licence_holders = st.multiselect('**Search a Licence Holder**', options=df['licence_holder'].unique())
 
     # Add 'coords' column to the original DataFrame first
     df['coords'] = df['geometry'].apply(lambda geom: (geom.y, geom.x) if not geom.is_empty else None)
 
 
     # Then, filter the DataFrame based on selected addresses or licence holders
-    mask = df['Address'].isin(selected_addresses) | df['Licence Holder'].isin(selected_licence_holders)
+    mask = df['address'].isin(selected_addresses) | df['licence_holder'].isin(selected_licence_holders)
     filtered_df = df.loc[mask]
 
     # Display DataFrame
     st.write("")
     st.write("**Table Information**")
-    st.dataframe(filtered_df[['Address', 'Street name', 'Maximum Permitted Number of Tenants', 'Licence Holder']], use_container_width=True, hide_index=True)
+    st.dataframe(filtered_df[['address', 'street_name', 'max_tenants', 'licence_holder']], use_container_width=True, hide_index=True)
     
     # Set coordinates for Leeds, UK
     leeds_centre = (53.800755, -1.549077)

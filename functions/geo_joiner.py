@@ -9,7 +9,7 @@ def df_to_geodf(df):
     """
     # 'Coordinates' column format is '(lat, lon)', split and convert to numeric
     
-    df[['Latitude', 'Longitude']] = df['Coordinates'].str.strip('()').str.split(', ', expand=True).astype(float)
+    df[['Latitude', 'Longitude']] = df['coordinates'].str.strip('()').str.split(', ', expand=True).astype(float)
     
     # Create Point geometries
     df['geometry'] = [Point(xy) for xy in zip(df.Longitude, df.Latitude)]
