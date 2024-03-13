@@ -38,7 +38,7 @@ def fetch_data2(con):
     
     query = """
     SELECT DISTINCT address, 
-    street_name, 
+    "Street Name", 
     max_tenants,
     licence_holder,
     coordinates
