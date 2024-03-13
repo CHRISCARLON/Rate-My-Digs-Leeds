@@ -39,7 +39,7 @@ def fetch_data2(con):
     query = """
     SELECT DISTINCT address, 
     "Street Name", 
-    max_tenants,
+    "Max Permitted Number of Tenants",
     licence_holder,
     coordinates
     from leeds_hmo_04032024

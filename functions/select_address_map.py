@@ -20,7 +20,7 @@ def select_address_map(df):
     # Display DataFrame
     st.write("")
     st.write("**Table Information**")
-    st.dataframe(filtered_df[['address', 'Street Name', 'max_tenants', 'licence_holder']], use_container_width=True, hide_index=True)
+    st.dataframe(filtered_df[['address', 'Street Name', 'Max Permitted Number of Tenants', 'licence_holder']], use_container_width=True, hide_index=True)
     
     # Set coordinates for Leeds, UK
     leeds_centre = (53.800755, -1.549077)
