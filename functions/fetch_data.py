@@ -24,7 +24,7 @@ def fetch_data(con):
     SELECT COUNT(DISTINCT Address) AS UniqueAddressCount, 
     postcode, 
     coordinates
-    FROM leeds_hmo_15022024 
+    FROM leeds_hmo_04032024 
     GROUP BY Postcode, Coordinates
     """
     result = con.execute(query)
@@ -42,7 +42,7 @@ def fetch_data2(con):
     max_tenants,
     licence_holder,
     coordinates
-    from leeds_hmo_15022024
+    from leeds_hmo_04032024
     """
     result = con.execute(query)
     df = result.fetchdf()
