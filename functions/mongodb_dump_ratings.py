@@ -3,7 +3,7 @@ import streamlit as st
 
 
 def create_connection():
-    uri = st.secrets['connection']  
+    uri = st.secrets['mongomongo']  
     client = MongoClient(uri)
     try:
         client.admin.command('ping')
