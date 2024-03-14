@@ -58,8 +58,8 @@ def homepage_text():
     
     with st.container():
         st.info("""
-        **This Streamlit App Contains the following data:**\n
-        "Housing in Multiple Occupation (HMO) Licence Register", (c) Leeds City Council, 2024, 
+        **This Streamlit App Contains the Following Data:**\n
+        Housing in Multiple Occupation (HMO) Licence Register", (c) Leeds City Council, 2024, 
         [Data Mill North](https://datamillnorth.org/dataset/2o13g/houses-in-multiple-occupation-licence-register/).\n 
         This information is licensed under the terms of the Open Government Licence.
         """)
