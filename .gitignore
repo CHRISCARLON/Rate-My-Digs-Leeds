@@ -1,0 +1,11 @@
+__pycache__/
+.venv/
+cache/
+functions/__pycache__/
+functions/cache/
+tests/__pycache__/
+tests/.pytest_cache/
+.ruff_cache
+.env
+secrets.toml
+poetry.lock
