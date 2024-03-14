@@ -1,5 +1,6 @@
-## Current App Data Flow Below 
-### Next steps are to increase automation of the pipeline and user input updates
+# Current App Data Flow Below
+
+## Next steps are to increase automation of the pipeline and user input updates
 
 ### Data pipeline for this Streamlit App can be found here: [Leeds HMO Data Pipeline](https://github.com/CHRISCARLON/Leeds-HMO-Lambda-Pipeline)
 

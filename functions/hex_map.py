@@ -1,7 +1,6 @@
 import folium
 from folium import GeoJson
 import branca
-import math
 
 def display_hex_map(gdf):
     """

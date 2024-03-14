@@ -5,3 +5,4 @@ functions/__pycache__/
 functions/cache/
 tests/__pycache__/
 tests/.pytest_cache/
+.ruff_cache

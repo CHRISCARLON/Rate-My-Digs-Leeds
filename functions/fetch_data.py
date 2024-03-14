@@ -33,14 +33,13 @@ def fetch_data(con):
 
 def fetch_data2(con):
     """
-    Fetch df containing all information on addresses
+    Fetch df containing information on addresses
     """
     
     query = """
     SELECT DISTINCT address, 
     "Street Name", 
     "Maximum Permittted Number of Tenants",
-    licence_holder,
     coordinates
     from leeds_hmo_04032024
     """

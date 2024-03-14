@@ -2,25 +2,21 @@ import folium
 import streamlit as st
 
 def select_address_map(df):
-    st.markdown('## Address & Licence Holder Mapping')
+    st.markdown('## Address Mapping')
     # Separate multiselect for addresses
     selected_addresses = st.multiselect('**Search an Address**', options=df['address'].unique())
-
-    # Separate multiselect for licence holders
-    selected_licence_holders = st.multiselect('**Search a Licence Holder**', options=df['licence_holder'].unique())
 
     # Add 'coords' column to the original DataFrame first
     df['coords'] = df['geometry'].apply(lambda geom: (geom.y, geom.x) if not geom.is_empty else None)
 
-
-    # Then, filter the DataFrame based on selected addresses or licence holders
-    mask = df['address'].isin(selected_addresses) | df['licence_holder'].isin(selected_licence_holders)
+    # Filter the DataFrame based on selected addresses or licence holders
+    mask = df['address'].isin(selected_addresses)
     filtered_df = df.loc[mask]
 
     # Display DataFrame
     st.write("")
     st.write("**Table Information**")
-    st.dataframe(filtered_df[['address', 'Street Name', 'Maximum Permittted Number of Tenants', 'licence_holder']], use_container_width=True, hide_index=True)
+    st.dataframe(filtered_df[['address', 'Street Name', 'Maximum Permittted Number of Tenants']], use_container_width=True, hide_index=True)
     
     # Set coordinates for Leeds, UK
     leeds_centre = (53.800755, -1.549077)
@@ -38,7 +34,7 @@ def select_address_map(df):
         latitude, longitude = coords
 
         # Aggregate information for tooltip
-        tooltip_text = '<br>'.join([f"<div style='font-family: monospace; font-size: 12px;'> Address: {row['address']} + Licence Holder: {row['licence_holder']}.</div>" for _, row in group.iterrows()])
+        tooltip_text = '<br>'.join([f"<div style='font-family: monospace; font-size: 12px;'> Address: {row['address']}.</div>" for _, row in group.iterrows()])
         
         # Create a popup with aggregated information
         popup = folium.Popup(tooltip_text, max_width=700)
