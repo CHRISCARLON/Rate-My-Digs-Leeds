@@ -8,4 +8,3 @@ tests/.pytest_cache/
 .ruff_cache
 .env
 secrets.toml
-poetry.lock
