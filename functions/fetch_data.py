@@ -31,15 +31,14 @@ def fetch_data(con):
     df = result.fetchdf()
     return df
 
+
 def fetch_data2(con):
     """
     Fetch df containing information on addresses
     """
     
     query = """
-    SELECT DISTINCT address, 
-    "Street Name", 
-    "Maximum Permittted Number of Tenants",
+    SELECT DISTINCT address,
     coordinates
     from leeds_hmo_04032024
     """
@@ -47,11 +46,11 @@ def fetch_data2(con):
     df = result.fetchdf()
     return df
 
+
 def fetch_data3(con):
     """
     Fetch df containing information on addresses
     """
-    
     query = """
     SELECT DISTINCT address
     from leeds_hmo_04032024

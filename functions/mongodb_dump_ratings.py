@@ -1,6 +1,6 @@
 from pymongo.mongo_client import MongoClient
+from datetime import datetime
 import streamlit as st
-
 
 def create_connection():
     uri = st.secrets['mongomongo']  
@@ -18,25 +18,52 @@ def load_data_into_collection(client, db_name: str, collection_name: str, data: 
     collection.insert_one(data)
 
 def user_input_and_data_upload(df):
-    # Select an address
-    st.markdown('## Rate My Digs Feedback Form')
-    st.markdown('#### **Please select your address and provide your feedback below!**')
-    selected_address = st.selectbox('Select an Address', options=df['address'].unique())
+    st.markdown('## **To start the process, please select your address and provide your feedback below.**')
+    
+    # Address selection with placeholder
+    selected_address = st.selectbox('Please select/type in your address - you can use your postcode to speed this up.', options=[""] + list(df['address'].unique()), index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
 
     if selected_address:
-        # User inputs for happiness and rent
-        happiness_level = st.number_input("On a scale of 1-10, how happy are you with your accommodation?", min_value=1, max_value=10, value=5, step=1)
-        rent_amount = st.number_input("How much rent do you pay per month in £s?", min_value=0.0, format="%.2f")
-
-        # Button to submit data
+        # Satisfaction level input
+        satisfaction_level = st.number_input(label="On a scale of 1-10, how happy are you with your accommodation?", min_value=1, max_value=10, value=1, step=1)
+        
+        # Rent amount input
+        rent_amount = st.number_input(label="How much is your monthly rent in £s?", min_value=0.0, value=0.0, format="%.2f")
+        
+        # Occupation selection with placeholder
+        occupation = st.selectbox(label="Are you a Student, Professional, or Other?", options=[""] + ["Student", "Professional", "Other"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+        
+        # Dealing with landlord directly or via an estate agent with placeholder
+        dealing_with_landlord = st.selectbox(label="Do you deal with the landlord directly or via an Estate Agent?", options=[""] + ["Landlord directly", "Via an Estate Agent"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+        
+        # Mould presence selection with placeholder
+        mould_presence = st.selectbox(label="During the last 6 months, has there been any mould or damp in your HMO?", options=[""] + ["Yes", "No", "Don't Know"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+        
+        # Leaks presence selection with placeholder
+        leaks_presence = st.selectbox(label="During the last 6 months, have there been any leaks in your HMO?", options=[""] + ["Yes", "No", "Don't Know"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+        
         if st.button("Submit Feedback"):
-            data = {
-                "address": selected_address,
-                "happiness_level": happiness_level,
-                "rent_amount": rent_amount
-            }
+            if selected_address and occupation and satisfaction_level and rent_amount and mould_presence and dealing_with_landlord and leaks_presence :
+                try:
+                    
+                    current_time_date = datetime.now()
+                    
+                    data = {
+                        "address": selected_address,
+                        "satisfaction_level": satisfaction_level,
+                        "dealing_with_landlord": dealing_with_landlord,
+                        "rent_amount": rent_amount, 
+                        "occupation": occupation,
+                        "mould_prescence": mould_presence,
+                        "leaks_presence": leaks_presence,
+                        "time_stamp": current_time_date
+                    }
 
-            # MongoDB operations
-            client = create_connection()
-            load_data_into_collection(client, st.secrets["db_mongo"], st.secrets["mongo_collect"], data)
-            st.success("Success! Thank you for your feedback!")
+                    # MongoDB operations
+                    client = create_connection()
+                    load_data_into_collection(client, st.secrets["db_mongo"], st.secrets["mongo_collect"], data)
+                    st.success("**Success! Thank you for your feedback!**")
+                except Exception:
+                    st.error("**An error occurred. Please try again later.")
+            else:
+                st.error("**Problem! Please fill in all fields before submitting your feedback!**")

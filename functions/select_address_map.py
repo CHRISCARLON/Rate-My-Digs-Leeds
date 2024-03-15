@@ -2,8 +2,8 @@ import folium
 import streamlit as st
 
 def select_address_map(df):
-    st.markdown('## HMO Ratings Map')
-    st.info('**When enough HMO ratings are collected via "Rate My Digs" this page will provide a way to visualise them.**')
+    st.markdown('## HMO Deep Dive')
+    st.info('**Once enough information has been collected via our *Feedback Form* section this page will provide a way to visualise it.**')
     # Separate multiselect for addresses
     selected_addresses = st.multiselect('**Search an Address**', options=df['address'].unique())
 
@@ -17,7 +17,7 @@ def select_address_map(df):
     # Display DataFrame
     st.write("")
     st.write("**Table Information**")
-    st.dataframe(filtered_df[['address', 'Street Name', 'Maximum Permittted Number of Tenants']], use_container_width=True, hide_index=True)
+    st.dataframe(filtered_df[['address']], use_container_width=True, hide_index=True)
     
     # Set coordinates for Leeds, UK
     leeds_centre = (53.800755, -1.549077)
@@ -41,6 +41,6 @@ def select_address_map(df):
         popup = folium.Popup(tooltip_text, max_width=700)
     
         # Create a marker for the grouped addresses with the popup
-        folium.Marker([latitude, longitude], popup=popup, icon=folium.Icon(icon='home', prefix='fa', color='purple')).add_to(m)
+        folium.Marker([latitude, longitude], popup=popup, icon=folium.Icon(icon='home', prefix='fa', color='blue')).add_to(m)
 
     return m
