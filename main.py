@@ -91,7 +91,6 @@ def homepage_text():
     </style>
     """, unsafe_allow_html=True)
     
-    st.markdown("## Navigation Bar:")
     st.markdown("###### Please use the navigation bar to the left to select a page.")
     
     col1, col2, col3 = st.columns(3)
@@ -115,7 +114,7 @@ def homepage_text():
         st.markdown("""
         <div class="navigation-box">
             <h3>Feedback Form</h3>
-            <p>Tells about your living situation and submit your HMO feedback here!</p>
+            <p>Tell us about your living situation and submit your HMO feedback here!</p>
         </div>
         """, unsafe_allow_html=True)
     
