@@ -105,7 +105,7 @@ def homepage_function():
         st.markdown("""
         <div class="navigation-box">
             <h3>Feedback Form</h3>
-            <p>Tell us about your living situation and submit your HMO feedback.</p>
+            <p>Submit your HMO feedback here!</p>
         </div>
         """, unsafe_allow_html=True)
     
