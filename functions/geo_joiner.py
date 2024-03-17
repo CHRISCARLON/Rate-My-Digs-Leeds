@@ -48,5 +48,4 @@ def spatial_join_hex_with_data(hex_gdf, data_gdf):
     
     # Optionally, set the final GeoDataFrame's index back if desired
     final_gdf.set_index('hex_index', inplace=True)
-
     return final_gdf

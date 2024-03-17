@@ -22,7 +22,7 @@ def display_hex_map(gdf):
                             attr=custom_attribution)
 
     # Define a color scale for the hex grids with specified vmin, vmax, and tick_labels
-    colors = ["#fff7f3", "#fde0dd", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"]
+    colors = ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#084594"]
     colormap = branca.colormap.LinearColormap(colors, vmin=0, vmax=220)
     colormap.caption = 'Heatmap Bar: Total Unique Addresses in Each Hexagon'
 

@@ -2,10 +2,13 @@ import folium
 import streamlit as st
 
 def select_address_map(df):
-    st.markdown('## HMO Deep Dive')
-    st.info('**Once enough information has been collected via our *Feedback Form* section this page will provide a way to visualise it.**')
+    st.markdown('## HMO Deep Dive:')
+    st.info("""
+            **Once enough information has been collected via our *Feedback Form* section this page will provide a way to visualise it.**
+            \n**For now you can only plot individual addresses with address information**.
+            """)
     # Separate multiselect for addresses
-    selected_addresses = st.multiselect('**Search an Address**', options=df['address'].unique())
+    selected_addresses = st.multiselect('**Search an Address:**', options=df['address'].unique())
 
     # Add 'coords' column to the original DataFrame first
     df['coords'] = df['geometry'].apply(lambda geom: (geom.y, geom.x) if not geom.is_empty else None)
@@ -16,7 +19,7 @@ def select_address_map(df):
 
     # Display DataFrame
     st.write("")
-    st.write("**Table Information**")
+    st.write("**Table Information:**")
     st.dataframe(filtered_df[['address']], use_container_width=True, hide_index=True)
     
     # Set coordinates for Leeds, UK

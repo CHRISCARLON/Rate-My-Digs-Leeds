@@ -7,8 +7,9 @@ from functions.geo_joiner import df_to_geodf, spatial_join_hex_with_data
 from functions.hex_map import display_hex_map
 from functions.select_address_map import select_address_map
 from functions.mongodb_dump_ratings import user_input_and_data_upload
+from functions.homepage import homepage_function
 
-# Use the streamlit cache to prevent reloading 
+# Return Data Functions
 @st.cache_data(show_spinner=True)
 def return_hex():
     hex = hex_mapper()
@@ -37,6 +38,7 @@ def return_df3():
     df = fetch_data3(con)
     return df
 
+# Map Creation Functions
 @st.cache_data(show_spinner=True)    
 def return_hex_counts():
     hex_object = return_hex()
@@ -52,85 +54,19 @@ def return_address_map(gdf):
     map = select_address_map(gdf)
     return map
 
+# Misc Calculation Functions 
+def return_top_postcodes():
+    top_10_postcodes = return_df()
+    top_10_postcodes = top_10_postcodes.groupby('postcode')['UniqueAddressCount'] \
+        .sum() \
+        .reset_index() \
+        .sort_values(by="UniqueAddressCount", ascending=False) \
+        .head(10)  
+    return top_10_postcodes
 
+# Homepage Function
 def homepage_text():
-    
-    st.markdown("""
-    # Welcome to *Rate My Digs* :house_with_garden:
-
-    ###### *Simplifying the search for quality HMOs in Leeds.*
-
-    *Rate My Digs* is a straightforward platform aimed at improving the rental experience of people living in Leeds, particularly for those in Houses in Multiple Occupation (HMOs).
-
-    ### Features at a Glance:
-    - **Density Map:** Visualise the concentration of HMOs across Leeds, helping you identify popular areas.
-    - **Deep Dive:** Gain insights into properties with reviews and ratings, enabling informed decisions.
-    - **Feedback Form:** Share your experiences and contribute to improving private renting accross Leeds.
-
-    ### Why Use Rate My Digs?
-    - Make smarter rental choices with property insights.
-    - Raise your voice for higher living standards and accountability.
-
-    **This is only a prototype for now!** We're keen to hear your thoughts and suggestions to enhance *Rate My Digs*.
-    """, unsafe_allow_html=True)
-
-
-    st.markdown("""
-    <style>
-    .navigation-box {
-        background-color: #1f77b4; /* Change to a filled background color */
-        color: #ffffff; /* Ensure text color contrasts well with the background */
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px 0;
-    }
-    .navigation-box h3, .navigation-box p {
-        margin: 0; /* Remove default margins for a cleaner look */
-        color: #ffffff; /* Text color for visibility */
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("###### Please use the navigation bar to the left to select a page.")
-    
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown("""
-        <div class="navigation-box">
-            <h3>HMO Density</h3>
-            <p>A map showing the density of HMOs across Leeds.</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="navigation-box">
-            <h3>HMO Deep Dive</h3>
-            <p>What are people saying about HMOs across Leeds?</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div class="navigation-box">
-            <h3>Feedback Form</h3>
-            <p>Tell us about your living situation and submit your HMO feedback here!</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.write("")
-    st.write("")
-    
-    col4, col5 = st.columns(2)
-    with col4:
-        container = st.container(border=True)
-        container.caption("""
-        **This Streamlit App Contains the Following Data:**\n
-        Housing in Multiple Occupation (HMO) Licence Register", (c) Leeds City Council, 2024, 
-        [Data Mill North](https://datamillnorth.org/dataset/2o13g/houses-in-multiple-occupation-licence-register/).\n 
-        This information is licensed under the terms of the Open Government Licence.
-        """)
-
+    homepage_function()
 
 def main():
     st.set_page_config(layout="wide")
@@ -145,20 +81,23 @@ def main():
     if page == "**Home Page**":
         homepage_text()
     elif page == "**HMO Density**":
-        st.markdown("## Mapping the Density of HMOs Accross Leeds")
+        st.markdown("## Concentration of HMOs Accross Leeds:")
         
         # Create the hex counts
         hex_map_gdf = return_hex_counts()  
-    
         # Calculate the total number of addresses
         total_addresses = hex_map_gdf['TotalUniqueAddresses'].sum()
-        st.markdown(f"##### **Total addresses plotted**: {total_addresses}")
+        st.markdown(f"#### **Total addresses plotted**: {total_addresses}")
+        
+        # Calculate the top 10 postcodes
+        top_10_postcodes = return_top_postcodes() 
+        st.markdown("##### **Top 10 Postcodes with the Most HMOs**:")
+        st.dataframe(top_10_postcodes, hide_index=True)
     
-        # Generate the map using the display_hex_map function
+        # Generate the map using the return_hex_map function
         folium_map = return_hex_map(hex_map_gdf)
-    
-        # Display the map in the Streamlit app
-        st.write("**Hover your mouse over the hex grids to see the total number of HMOs in each one**")
+        st.markdown("##### Density Map:")
+        st.write("*Hover your mouse over the hex grids for more information:*")
         folium_static(folium_map, width=1420, height=750)
     elif page == "**HMO Deep Dive**":
         # Use return_df2 to get the geodataframe
@@ -166,7 +105,7 @@ def main():
         
         # Generate and display the map for Rate My Digs
         folium_map2 = return_address_map(address_map_gdf)
-        st.write('###### **Click an icon for more popup information**')
+        st.write('###### **Click an icon for more popup information:**')
         # Display the map in the Streamlit app
         folium_static(folium_map2, width=1420, height=750)
     elif page == "**Feedback Form**":
@@ -175,6 +114,5 @@ def main():
         address_data = return_df3()
         user_input_and_data_upload(address_data)
         
-
 if __name__ == "__main__":
     main()
