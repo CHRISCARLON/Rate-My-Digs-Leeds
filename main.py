@@ -91,12 +91,12 @@ def main():
         
         # Calculate the top 10 postcodes
         top_10_postcodes = return_top_postcodes() 
-        st.markdown("##### **Top 10 Postcodes with the Most HMOs**:")
+        st.markdown("#### **Top 10 Postcodes with the Most HMOs**:")
         st.dataframe(top_10_postcodes, hide_index=True)
     
         # Generate the map using the return_hex_map function
         folium_map = return_hex_map(hex_map_gdf)
-        st.markdown("##### Density Map:")
+        st.markdown("#### Density Map:")
         st.write("*Hover your mouse over the hex grids for more information:*")
         folium_static(folium_map, width=1420, height=750)
     elif page == "**HMO Deep Dive**":
