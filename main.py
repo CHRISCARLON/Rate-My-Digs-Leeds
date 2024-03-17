@@ -109,8 +109,6 @@ def main():
         # Display the map in the Streamlit app
         folium_static(folium_map2, width=1420, height=750)
     elif page == "**Feedback Form**":
-        # Display the image in the first column
-        st.image('pictures/Rate_My_Digs.png', width=250)
         address_data = return_df3()
         user_input_and_data_upload(address_data)
         

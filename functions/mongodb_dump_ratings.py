@@ -20,6 +20,7 @@ def load_data_into_collection(client, db_name: str, collection_name: str, data: 
     collection.insert_one(data)
 
 def user_input_and_data_upload(df):
+    st.markdown('# Feedback Form')
     st.markdown('## **To start the process, please select your address and then provide your feedback:**')
     
     # Address selection with placeholder
