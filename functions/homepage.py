@@ -24,7 +24,7 @@ def provide_feedback_function():
     feedback = st.text_input(label="Please submit your suggestions here:", value="", max_chars=500, key="feedback_input")
     
     # Ensure the button is always displayed
-    submit_button_pressed = st.button("Submit Suggestion")  
+    submit_button_pressed = st.button("Submit your suggestion")  
 
     # Checks if the button was pressed
     if submit_button_pressed:  
