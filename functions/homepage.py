@@ -21,10 +21,10 @@ def load_data_into_collection(client, db_name: str, collection_name: str, data: 
     
 def provide_feedback_function():
     # Set up feedback box
-    feedback = st.text_input(label="Please submit your feedback here:", value="", max_chars=500, key="feedback_input")
+    feedback = st.text_input(label="Please submit your suggestions here:", value="", max_chars=500, key="feedback_input")
     
     # Ensure the button is always displayed
-    submit_button_pressed = st.button("Submit Feedback")  
+    submit_button_pressed = st.button("Submit Suggestion")  
 
     # Checks if the button was pressed
     if submit_button_pressed:  
@@ -41,7 +41,7 @@ def provide_feedback_function():
                 # MongoDB operations
                 client = create_connection()
                 load_data_into_collection(client, st.secrets["db_mongo"], st.secrets["mongo_collect2"], data)
-                st.success("**Success! Thank you for your feedback!**")
+                st.success("**Success! Thanks for sharing your thoughts!**")
             except Exception:
                 st.error("**An error occurred. Please try again later.**")
         else:
