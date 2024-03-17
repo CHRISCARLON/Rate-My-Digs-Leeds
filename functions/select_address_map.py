@@ -2,7 +2,7 @@ import folium
 import streamlit as st
 
 def select_address_map(df):
-    st.markdown('## HMO Deep Dive:')
+    st.markdown('# HMO Deep Dive:')
     st.info("""
             **Once enough information has been collected via our *Feedback Form* section this page will provide a way to visualise it.**
             \n**For now you can only plot individual addresses with address information**.

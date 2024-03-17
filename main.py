@@ -81,7 +81,7 @@ def main():
     if page == "**Home Page**":
         homepage_text()
     elif page == "**HMO Density**":
-        st.markdown("## Concentration of HMOs Accross Leeds:")
+        st.markdown("# Concentration of HMOs Accross Leeds:")
         
         # Create the hex counts
         hex_map_gdf = return_hex_counts()  
