@@ -24,7 +24,7 @@ def provide_feedback_function():
     feedback = st.text_input(label="Please submit your suggestions here:", value="", max_chars=500, key="feedback_input")
     
     # Ensure the button is always displayed
-    submit_button_pressed = st.button("Submit your suggestion")  
+    submit_button_pressed = st.button("Submit Your Suggestion Here")  
 
     # Checks if the button was pressed
     if submit_button_pressed:  
@@ -57,7 +57,7 @@ def homepage_function():
     *Rate My Digs* is a simple platform aimed at improving the rental experience of people living in Leeds, particularly for those in Houses in Multiple Occupation (HMOs).
 
     ### Features at a Glance:
-    - **HMO Density:** A map visualise the concentration of HMOs across Leeds.
+    - **HMO Density:** A map that visualises the concentration of HMOs across Leeds.
     - **HMO Deep Dive:** Gain insights into properties with reviews and ratings, enabling informed decisions.
     - **Feedback Form:** Share your experiences and contribute to improving private renting accross Leeds.
     """)
