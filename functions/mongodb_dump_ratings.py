@@ -27,6 +27,10 @@ def user_input_and_data_upload(df):
     selected_address = st.selectbox('Please select/type in your address - you can use your postcode to speed this up.', options=[""] + list(df['address'].unique()), index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
 
     if selected_address:
+        
+        # Retrieve hmo_id for records
+        hmo_id = df[df['address'] == selected_address]['hmo_id'].iloc[0] 
+        
         # Satisfaction level input
         satisfaction_level = st.number_input(label="On a scale of 1-10, how happy are you with your accommodation?", min_value=1, max_value=10, value=5, step=1)
         
@@ -55,6 +59,7 @@ def user_input_and_data_upload(df):
                     current_time_date = datetime.now()
                     
                     data = {
+                        "hmo_id": hmo_id,
                         "address": selected_address,
                         "satisfaction_level": satisfaction_level,
                         "dealing_with_landlord": dealing_with_landlord,
