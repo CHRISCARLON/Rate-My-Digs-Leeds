@@ -28,8 +28,11 @@ def user_input_and_data_upload(df):
 
     if selected_address:
         
-        # Retrieve hmo_id for records
-        hmo_id = df[df['address'] == selected_address]['hmo_id'].iloc[0] 
+        matching_row = df[df['address'] == selected_address]
+        if not matching_row.empty:
+            hmo_id = matching_row['hmo_id'].iloc[0]
+        else:
+            st.error("Selected address not found in the dataset.")
         
         # Satisfaction level input
         satisfaction_level = st.number_input(label="On a scale of 1-10, how happy are you with your accommodation?", min_value=1, max_value=10, value=5, step=1)
