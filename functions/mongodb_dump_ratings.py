@@ -28,9 +28,9 @@ def user_input_and_data_upload(df):
 
     if selected_address:
         
-        matching_row = df[df['address'] == selected_address]
-        if not matching_row.empty:
-            hmo_id = matching_row['hmo_id'].iloc[0]
+        hmo_id_row = df[df['address'] == selected_address]
+        if not hmo_id_row.empty:
+            hmo_id = hmo_id_row['hmo_id'].iloc[0]
         else:
             st.error("Selected address not found in the dataset.")
         
