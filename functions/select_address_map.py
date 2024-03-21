@@ -20,7 +20,7 @@ def select_address_map(df):
     # Display DataFrame
     st.write("")
     st.write("**Table Information:**")
-    st.dataframe(filtered_df[['address']], use_container_width=True, hide_index=True)
+    st.dataframe(filtered_df[['address', 'max_tenants']], use_container_width=True, hide_index=True)
     
     # Set coordinates for Leeds, UK
     leeds_centre = (53.800755, -1.549077)
@@ -38,7 +38,7 @@ def select_address_map(df):
         latitude, longitude = coords
 
         # Aggregate information for tooltip
-        tooltip_text = '<br>'.join([f"<div style='font-family: monospace; font-size: 12px;'> Address: {row['address']}.</div>" for _, row in group.iterrows()])
+        tooltip_text = '<br>'.join([f"<div style='font-family: monospace; font-size: 12px;'> Address: {row['address']}. Max Tenants: {row['max_tenants']}</div>" for _, row in group.iterrows()])
         
         # Create a popup with aggregated information
         popup = folium.Popup(tooltip_text, max_width=700)

@@ -25,7 +25,7 @@ def fetch_data(con):
     postcode, 
     coordinates
     FROM leeds_hmo_04032024 
-    GROUP BY Postcode, Coordinates
+    GROUP BY postcode, coordinates
     """
     result = con.execute(query)
     df = result.fetchdf()
@@ -39,7 +39,8 @@ def fetch_data2(con):
     
     query = """
     SELECT DISTINCT address,
-    coordinates
+    coordinates,
+    max_tenants
     from leeds_hmo_04032024
     """
     result = con.execute(query)
@@ -52,7 +53,8 @@ def fetch_data3(con):
     Fetch df containing information on addresses
     """
     query = """
-    SELECT DISTINCT address
+    SELECT DISTINCT address,
+    hmo_id
     from leeds_hmo_04032024
     """
     result = con.execute(query)
