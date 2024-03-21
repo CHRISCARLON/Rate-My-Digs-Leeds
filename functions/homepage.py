@@ -115,7 +115,7 @@ def homepage_function():
     # Container for feedback section
     with st.container():
         st.markdown("""
-                    ##### This is currently a prototype and runs on a free community server. We're keen to hear your thoughts and suggestions to enhance *Rate My Digs*.
+                    ##### This is currently a prototype and runs on a free community server. We're keen to hear your thoughts and suggestions on how to enhance *Rate My Digs*.
                     """)
         provide_feedback_function() 
 
