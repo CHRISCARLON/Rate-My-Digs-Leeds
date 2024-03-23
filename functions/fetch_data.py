@@ -1,5 +1,7 @@
 import streamlit as st
 import duckdb
+from loguru import logger
+
 
 def connect_to_motherduck(database):
     """
@@ -11,7 +13,10 @@ def connect_to_motherduck(database):
         raise ValueError("MotherDuck token not found in environment variables")
 
     connection_string = f'md:{database}?motherduck_token={token}'
-    con = duckdb.connect(connection_string)
+    try:
+        con = duckdb.connect(connection_string)
+    except Exception as e:
+        logger.warning(f"An error occured {e}")
     return con
 
 
@@ -19,12 +24,14 @@ def fetch_data(con):
     """
     Fetch df containing counts of addresses grouped by postcode and the corresponding coordinates
     """
+    schema = st.secrets["mother_schema"]
+    table_name = st.secrets["table_name"]
     
-    query = """
+    query = f"""
     SELECT COUNT(DISTINCT Address) AS UniqueAddressCount, 
     postcode, 
     coordinates
-    FROM leeds_hmo_04032024 
+    FROM {schema}.{table_name}
     GROUP BY postcode, coordinates
     """
     result = con.execute(query)
@@ -36,12 +43,14 @@ def fetch_data2(con):
     """
     Fetch df containing information on addresses
     """
+    schema = st.secrets["mother_schema"]
+    table_name = st.secrets["table_name"]
     
-    query = """
+    query = f"""
     SELECT DISTINCT address,
     coordinates,
     max_tenants
-    from leeds_hmo_04032024
+    FROM {schema}.{table_name}
     """
     result = con.execute(query)
     df = result.fetchdf()
@@ -52,10 +61,13 @@ def fetch_data3(con):
     """
     Fetch df containing information on addresses
     """
-    query = """
+    schema = st.secrets["mother_schema"]
+    table_name = st.secrets["table_name"]
+    
+    query = f"""
     SELECT DISTINCT address,
     hmo_id
-    from leeds_hmo_04032024
+    FROM {schema}.{table_name}
     """
     result = con.execute(query)
     df = result.fetchdf()
