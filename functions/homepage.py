@@ -21,7 +21,7 @@ def load_data_into_collection(client, db_name: str, collection_name: str, data: 
     
 def provide_feedback_function():
     # Set up feedback box
-    feedback = st.text_input(label="Please write your suggestions here:", value="", max_chars=500, key="feedback_input")
+    feedback = st.text_input(label="Please write your suggestion here:", value="", max_chars=500, key="feedback_input")
     
     # Ensure the button is always displayed
     submit_button_pressed = st.button("Submit Your Suggestion Here")  
