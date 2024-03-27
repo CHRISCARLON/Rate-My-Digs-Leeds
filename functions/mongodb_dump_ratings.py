@@ -20,7 +20,7 @@ def load_data_into_collection(client, db_name: str, collection_name: str, data: 
 
 def user_input_and_data_upload(df):
     st.markdown('# Feedback Form')
-    st.markdown('### **To start the process, please select your address from the list of options below:**')
+    st.markdown('### **To start the process, please select your address from the list of options:**')
     
     # Address selection with placeholder
     selected_address = st.selectbox('Please select/type in your address - you can use your postcode to speed this up.', options=[""] + list(df['address'].unique()), index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
