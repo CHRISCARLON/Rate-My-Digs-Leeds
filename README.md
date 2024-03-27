@@ -11,11 +11,12 @@ Rate My Digs is a simple platform aimed at improving the rental experience for p
 - **Feedback Form:** Share your experiences and contribute to improving private renting across Leeds.
 
 ## Why Use Rate My Digs?
+
 - Make smarter rental choices with property insights.
 - Raise your voice for higher living standards and accountability.
 
 This is currently a prototype and runs on a free community server. We're keen to hear your thoughts and suggestions on how to enhance Rate My Digs.
-##
+
 **HMO data ingestion pipeline can be found here:** [Leeds HMO Data Pipeline](https://github.com/CHRISCARLON/Leeds-HMO-Lambda-Pipeline)
 
 **User feedback ingestion pipeline can be found here:** **TBC**

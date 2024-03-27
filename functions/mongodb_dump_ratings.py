@@ -8,7 +8,6 @@ def create_connection():
     client = MongoClient(uri)
     try:
         client.admin.command('ping')
-        print("Successfully connected to MongoDB!")
     except Exception as e:
         print(f"Error connecting to MongoDB: {e}")
     return client
@@ -35,7 +34,10 @@ def user_input_and_data_upload(df):
             st.error("Selected address not found in the dataset.")
         
         # Satisfaction level input
-        satisfaction_level = st.number_input(label="On a scale of 1-10, how happy are you with your accommodation?", min_value=1, max_value=10, value=5, step=1)
+        hmo_satisfaction_level = st.number_input(label="On a scale of 1-10, how happy are you with the quality of your accommodation?", min_value=1, max_value=10, value=5, step=1)
+        
+        # Satisfaction level input
+        area_satisfaction_level = st.number_input(label="On a scale of 1-10, how happy are you with the area you live in?", min_value=1, max_value=10, value=5, step=1)
         
         # Rent amount input
         rent_amount = st.number_input(label="How much is your monthly rent in £s? (e.g. 500.00)", min_value=0.0, value=0.0, format="%.2f")
@@ -53,10 +55,10 @@ def user_input_and_data_upload(df):
         leaks_presence = st.selectbox(label="During the last 6 months, have there been any leaks in your HMO?", options=[""] + ["Yes", "No", "Don't Know"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
         
         # Leaks presence selection with placeholder
-        maintenance_repairs = st.selectbox(label="When a maintenance problem is reported, how long does it take to be resolved?", options=[""] + ["Hours", "Days", "Weeks", "Months", "Problems are not resolved"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+        maintenance_repairs = st.selectbox(label="When a maintenance problem is reported, how long does it take to be resolved?", options=[""] + ["Fixed the same day", "Within 1 week", "Within 2 weeks", "Within 3 weeks", "Within 4 weeks", "More than 4 weeks"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
         
-        if st.button("Submit HMO Feedback Here"):
-            if selected_address and occupation and satisfaction_level and rent_amount and mould_presence and dealing_with_landlord and leaks_presence and maintenance_repairs:
+        if st.button("Submit HMO Feedback"):
+            if selected_address and occupation and hmo_satisfaction_level and area_satisfaction_level and rent_amount and mould_presence and dealing_with_landlord and leaks_presence and maintenance_repairs:
                 try:
                     
                     current_time_date = datetime.now()
@@ -64,7 +66,8 @@ def user_input_and_data_upload(df):
                     data = {
                         "hmo_id": hmo_id,
                         "address": selected_address,
-                        "satisfaction_level": satisfaction_level,
+                        "hmo_satisfaction_level": hmo_satisfaction_level,
+                        "area_satisfaction_level": area_satisfaction_level,
                         "dealing_with_landlord": dealing_with_landlord,
                         "rent_amount": rent_amount, 
                         "occupation": occupation,

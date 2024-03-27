@@ -8,4 +8,5 @@ tests/.pytest_cache/
 .ruff_cache
 .env
 secrets.toml
+/.streamlit/secrets.toml
 .DS_store
