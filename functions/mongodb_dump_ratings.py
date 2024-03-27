@@ -23,7 +23,7 @@ def user_input_and_data_upload(df):
     st.markdown('### **To start the process, please select your address from the list of options:**')
     
     # Address selection with placeholder
-    selected_address = st.selectbox('Please select/type in your address - you can use your postcode to speed this up.', options=[""] + list(df['address'].unique()), index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+    selected_address = st.selectbox('Please select/type in your address - you can use your postcode to speed this up.', options=[""] + list(df['address'].unique()), index=0, format_func=lambda x: "Start here..." if x == "" else x)
 
     if selected_address:
         
