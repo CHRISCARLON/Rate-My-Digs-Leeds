@@ -55,7 +55,7 @@ def user_input_and_data_upload(df):
         leaks_presence = st.selectbox(label="During the last 6 months, have there been any leaks in your HMO?", options=[""] + ["Yes", "No", "Don't Know"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
         
         # Leaks presence selection with placeholder
-        maintenance_repairs = st.selectbox(label="When a maintenance problem is reported, how long does it take to be resolved?", options=[""] + ["Fixed the same day", "Within 1 week", "Within 2 weeks", "Within 3 weeks", "Within 4 weeks", "More than 4 weeks"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
+        maintenance_repairs = st.selectbox(label="When a maintenance problem is reported, how long does it take to be resolved?", options=[""] + ["Fixed the same day", "Within 1 week", "Within 2 weeks", "Within 3 weeks", "Within 4 weeks", "More than 4 weeks", "Problems are never resolved"], index=0, format_func=lambda x: "Please select an option..." if x == "" else x)
         
         if st.button("Submit HMO Feedback"):
             if selected_address and occupation and hmo_satisfaction_level and area_satisfaction_level and rent_amount and mould_presence and dealing_with_landlord and leaks_presence and maintenance_repairs:
